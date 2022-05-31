@@ -79,7 +79,7 @@ function(err){
   console.log(chalk.green(symbols.success), chalk.green('Generation completed!'))
   console.log('\n Copy the following SAM deffinition onto the resource block of your template.yaml:')
   let log =`\n      
-  ${projectName}:
+  ${projectName}Function:
   Type: AWS::Serverless::Function 
   Properties:
     CodeUri: ${projectName}/function/
