@@ -20,7 +20,7 @@ npm install function-stencil
 ## Usage
 
 ```sh
-npm function-stencil init
+function-stencil init
 ```
 
 ## Run tests
