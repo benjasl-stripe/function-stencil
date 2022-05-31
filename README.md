@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to function-scaffolder 👋</h1>
+<h1 align="center">Welcome to function-stencil 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
   <a href="#" target="_blank">
@@ -14,13 +14,13 @@
 ## Install
 
 ```sh
-npm install function-scaffolder
+npm install function-stencil
 ```
 
 ## Usage
 
 ```sh
-npm function-scaffolder init
+npm function-stencil init
 ```
 
 ## Run tests
