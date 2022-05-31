@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "function-scaffold-init": "bin/function-scaffold-init"
+    "function-scaffolder-init": "bin/function-scaffolder-init"
   },
   "keywords": [],
   "author": "",
