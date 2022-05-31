@@ -23,6 +23,26 @@ npm install function-stencil
 function-stencil init
 ```
 
+### 1. Choose the Function runtime
+```sh
+? What runtime do you need? (Use arrow keys)
+❯ nodejs14.x 
+  nodejs12.x 
+```
+
+### 1. Choose the Function runtime
+```sh
+? What runtime do you need? (Use arrow keys)
+❯ nodejs14.x 
+  nodejs12.x 
+```
+### 2. Prvide a function a name
+```sh
+What's the function name? CallAPI
+```
+
+
+
 ## Run tests
 
 ```sh

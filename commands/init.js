@@ -9,6 +9,7 @@ const chalk = require('chalk')
 const inquirer = require('inquirer')
 const copydir = require('copy-dir');
 const highlight = require('cli-highlight').highlight
+const path = require('path');
 
 
 
@@ -67,8 +68,7 @@ console.log(chalk.green('\n Start generating... \n'))
 const spinner = ora("Downloading...");
 spinner.start();
 
-
-copydir(`./functions/${templateName}`, `./${projectName}`,
+copydir(path.join(__dirname,`../functions/${templateName}`) , `./${projectName}`,
 
 function(err){
   if(err){ 
