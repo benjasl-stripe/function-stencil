@@ -1,5 +1,5 @@
 {
-  "name": "function-scaffolder",
+  "name": "function-stencil",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "function-scaffolder": "bin/function-scaffolder",
-    "function-scaffolder-init": "bin/function-scaffolder"
+    "function-stencil": "bin/function-stencil",
+    "function-stencil-init": "bin/function-stencil"
   },
   "keywords": [],
   "author": "",
