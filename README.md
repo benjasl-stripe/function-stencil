@@ -49,12 +49,12 @@ MyFunctionName
 ### 4. AWS SAM snippet is generated, drop this into the resource block of your SAM template.yaml
 ```yaml    
   MyFunctionName:
-  Type: AWS::Serverless::Function 
-  Properties:
-    CodeUri: MyFunctionName/function/
-    Handler: app.lambdaHandler
-    Runtime: nodejs14.x
-    Timeout: 3 
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: MyFunctionName/function/
+      Handler: app.lambdaHandler
+      Runtime: nodejs14.x
+      Timeout: 3 
 ````
 
 
@@ -72,7 +72,7 @@ localTest: 7.998ms
 
 👤 **Benjamin Smith**
 
-* Website: http://developeradvocate.co.uk
+* Website: [@benjamin\_l\_S](https://github.com/bls20AWS/function-stencil)
 * Twitter: [@benjamin\_l\_S](https://twitter.com/benjamin\_l\_S)
 * Github: [@bls20AWS](https://github.com/bls20AWS)
 
