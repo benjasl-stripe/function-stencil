@@ -1,4 +1,4 @@
-#Welcome to function-stencil 👋
+# Welcome to function-stencil 👋
 > A quickstart AWS Lambda function code generator. Downloads a template function code file, test harness file, sample SAM deffiniation and appropriate file structure.
 
 ## Install
@@ -62,7 +62,7 @@ localTest: 7.998ms
 
 👤 **Benjamin Smith**
 
-* Website: [@benjamin\_l\_S](https://github.com/bls20AWS/function-stencil)
+* Website: [https://github.com/bls20AWS/function-stencil](https://github.com/bls20AWS/function-stencil)
 * Twitter: [@benjamin\_l\_S](https://twitter.com/benjamin\_l\_S)
 * Github: [@bls20AWS](https://github.com/bls20AWS)
 
