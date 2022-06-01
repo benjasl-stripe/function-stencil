@@ -80,12 +80,12 @@ function(err){
   console.log('\n Copy the following SAM deffinition onto the resource block of your template.yaml:')
   let log =`\n      
   ${projectName}Function:
-  Type: AWS::Serverless::Function 
-  Properties:
-    CodeUri: ${projectName}/function/
-    Handler: app.lambdaHandler
-    Runtime: nodejs14.x
-    Timeout: 3 \n`
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: ${projectName}/function/
+      Handler: app.lambdaHandler
+      Runtime: nodejs14.x
+      Timeout: 3 \n`
 
   console.log(highlight(log, {language: 'yaml', ignoreIllegals: true}))
   console.log('\n To get started')
