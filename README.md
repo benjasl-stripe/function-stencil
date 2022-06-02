@@ -1,5 +1,5 @@
 # Welcome to function-stencil 👋
-> A quickstart AWS Lambda function code generator. Downloads a template function code file, test harness file, sample SAM deffiniation and appropriate file structure.
+> A quickstart AWS Lambda function code generator. Downloads a template function code file, test harness file, sample SAM definition and appropriate file structure.
 
 ## Install
 
@@ -24,7 +24,7 @@ function-stencil init
 ```sh
 What's the function name? MyFunctionName
 ```
-### 3. Functon code and file system is generated
+### 3. Function code and file system is generated
 
 ```sh
 MyFunctionName
