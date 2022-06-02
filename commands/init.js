@@ -84,7 +84,7 @@ function(err){
     Properties:
       CodeUri: ${projectName}/function/
       Handler: app.lambdaHandler
-      Runtime: nodejs14.x
+      Runtime: ${templateName}
       Timeout: 3 \n`
 
   console.log(highlight(log, {language: 'yaml', ignoreIllegals: true}))
