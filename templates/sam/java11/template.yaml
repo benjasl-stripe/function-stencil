@@ -1,0 +1,13 @@
+LambdaFunctionprojectName:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: projectName/
+      Handler: helloworld.App::handleRequest
+      Runtime: templateName
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment: 
+        Variables:
+          PARAM1: VALUE
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1 

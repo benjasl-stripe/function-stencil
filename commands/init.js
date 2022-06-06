@@ -10,6 +10,7 @@ const inquirer = require('inquirer')
 const copydir = require('copy-dir');
 const highlight = require('cli-highlight').highlight
 const path = require('path');
+const fs = require('fs');
 
 
 
@@ -70,7 +71,7 @@ spinner.start();
 
 copydir(path.join(__dirname,`../functions/${templateName}`) , `./${projectName}`,
 
-function(err){
+async function(err){
   if(err){ 
      console.log(chalk.red(`\n${symbols.error}`), chalk.red(`OOPS! ${err}`)) 
      process.exit(1);
@@ -78,19 +79,27 @@ function(err){
   spinner.succeed();
   console.log(chalk.green(symbols.success), chalk.green('Generation completed!'))
   console.log('\n Copy the following SAM deffinition onto the resource block of your template.yaml:')
-  let log =`\n      
-  LambdaFunction${projectName}:
-    Type: AWS::Serverless::Function 
-    Properties:
-      CodeUri: ${projectName}/function/
-      Handler: app.lambdaHandler
-      Runtime: ${templateName}
-      Timeout: 3 \n`
+  
+  let template =  fs.readFileSync(path.join(__dirname,`../templates/sam/${templateName}/template.yaml`), 'utf8', (err,resultdata)=> {
+    if (err) {
+      return console.log(err);
+    }
+    return data
+  });
+
+  template = template.replace(/projectName/g, projectName)
+  template = template.replace(/templateName/g, templateName)
+
+  
+  let log =`\n       
+  ${template.replace('/projectName/g', projectName).replace('/templateName/g', templateName)}
+  \n`
 
   console.log(highlight(log, {language: 'yaml', ignoreIllegals: true}))
   console.log('\n To get started')
   console.log(`\n    cd ${projectName} \n`)
 });
+
 
 
 
