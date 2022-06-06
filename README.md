@@ -16,8 +16,8 @@ function-stencil init
 ### 1. Choose the function runtime
 ```sh
 ? What runtime do you need? (Use arrow keys)
-❯ nodejs14.x 
-  nodejs12.x 
+❯ nodejs16.x 
+  nodejs14.x 
 ```
 
 ### 2. Provide a function name
