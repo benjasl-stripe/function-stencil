@@ -22,7 +22,7 @@ function-stencil init
 
 ### 2. Provide a function name
 ```sh
-What's the function name? MyFunctionName
+Whats the function name? MyFunctionName
 ```
 ### 3. Function code and file system is generated
 
