@@ -49,8 +49,8 @@ const questions = [
 
 if (answers.length < 1) return program.help()
 
-let templateName = answers.runtime
-let projectName = answers.name
+let templateName = answers.runtime.replace(/\s/g, '')
+let projectName = answers.name.replace(/\s/g, '')
 
 if (!options.runtimes.includes(templateName)) {
   console.log(chalk.red('\n Runtime option does not exit! \n '))
