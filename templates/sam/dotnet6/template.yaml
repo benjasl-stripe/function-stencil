@@ -1,7 +1,7 @@
 LambdaFunctionprojectName:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: projectName/
+      CodeUri: projectName/DotnetFunction
       Handler: DotnetFunction::DotnetFunction.Function::LambdaHandler
       Runtime: templateName
       Architectures:
