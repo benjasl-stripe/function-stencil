@@ -78,7 +78,7 @@ async function(err){
     }
   spinner.succeed();
   console.log(chalk.green(symbols.success), chalk.green('Generation completed!'))
-  console.log('\n Copy the following SAM deffinition onto the resource block of your template.yaml:')
+  console.log('\n Copy the following SAM definition onto the resource block of your template.yaml:')
   
   let template =  fs.readFileSync(path.join(__dirname,`../templates/sam/${templateName}/template.yaml`), 'utf8', (err,resultdata)=> {
     if (err) {
