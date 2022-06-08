@@ -6,7 +6,7 @@ import { Duration, StackProps,
   CfnOutput} from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
-export class TypescriptStack extends Stack {
+export class MyStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
@@ -24,7 +24,7 @@ export class TypescriptStack extends Stack {
 
     new logs.LogGroup(
       this,
-      "SchedulerLogs",
+      "MyFunctionLogs",
       {
         logGroupName: "/aws/lambda/" + myFunction.functionName,
         removalPolicy: RemovalPolicy.DESTROY,

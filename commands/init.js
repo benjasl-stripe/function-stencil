@@ -137,15 +137,22 @@ inquirer.prompt(questions).then((answers) => {
       }else{
         console.log('FOLDER');
 
-        console.log(`\n Copy the following ../templates/${templateFolderName} folder definition to your ${projectName} folder:`)
+        //console.log(`\n Copy the following ../templates/${templateFolderName} folder definition to your ${projectName} folder:`)
 
-        copydir(path.join(__dirname,`../templates/${templateFolderName}`) , `./${projectName}`, {
-          utimes: true,  // keep add time and modify time
-          mode: true,    // keep file mode
-          cover: true    // cover file when exists, default is true
-        }, function(err){
-          if(err) throw err;
-          console.log('done');
+        console.log(chalk.green('\n Generating function files... \n'))
+        const spinner = ora("Downloading...");
+        spinner.start();
+
+        
+        copydir(path.join(__dirname,`../templates/${templateFolderName}`) , `./${projectName}`, 
+        async function(err){
+          if(err){ 
+            console.log(chalk.red(`\n${symbols.error}`), chalk.red(`OOPS! ${err}`)) 
+            process.exit(1);
+            }
+          spinner.succeed();
+          console.log(chalk.green(symbols.success), chalk.green('Generation completed!'))
+          
           let stackName =  fs.readFileSync(path.join(__dirname,`../${projectName}/bin/project.ts`), 'utf8', (err,resultdata)=> {
             if (err) {
               return console.log(err);
@@ -158,7 +165,7 @@ inquirer.prompt(questions).then((answers) => {
           //console.log(stackName);
 
           let log =`\n       
-          ${stackName.replace('/projectName/g', projectName).replace('/runtimeName/g', runtimeName)}
+          ${stackName.replace('/projectName/g', projectName)}
           \n`
           console.log(highlight(log, {language: 'yaml', ignoreIllegals: true}))
 
