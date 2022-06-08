@@ -1,7 +1,8 @@
+
 LambdaFunctionprojectName:
     Type: AWS::Serverless::Function 
     Properties:
       CodeUri: projectName/function/
       Handler: app.lambdaHandler
-      Runtime: templateName
+      Runtime: runtimeName
       Timeout: 3

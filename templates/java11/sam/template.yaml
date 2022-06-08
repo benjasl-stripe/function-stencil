@@ -1,9 +1,10 @@
+
 LambdaFunctionprojectName:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: projectName/
       Handler: helloworld.App::handleRequest
-      Runtime: templateName
+      Runtime: runtimeName
       Architectures:
         - x86_64
       MemorySize: 512

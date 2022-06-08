@@ -1,0 +1,9 @@
+
+LambdaFunctionprojectName:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: projectName/
+      Handler: app.lambda_handler
+      Runtime: runtimeName
+      Architectures:
+        - x86_64
