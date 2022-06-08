@@ -102,3 +102,16 @@ dist
 
 # TernJS port file
 .tern-port
+
+# .NET Output Directories
+**/bin/**/*
+**/obj/**/*
+
+# Editors
+.vs
+.idea
+*.iml
+
+# OS metadata
+.DS_Store
+Thumbs.db

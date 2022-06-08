@@ -1,0 +1,12 @@
+LambdaFunctionprojectName:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: projectName/DotnetFunction
+      Handler: DotnetFunction::DotnetFunction.Function::LambdaHandler
+      Runtime: templateName
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment: 
+        Variables:
+          PARAM1: VALUE
