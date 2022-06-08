@@ -2,7 +2,7 @@
   "name": "typescript",
   "version": "0.1.0",
   "bin": {
-    "typescript": "bin/typescript.js"
+    "typescript": "bin/project.js"
   },
   "scripts": {
     "build": "tsc",

@@ -15,9 +15,10 @@ export class TypescriptStack extends Stack {
     const myFunction = new lambda.Function(this, "MyFunction", {
       runtime: myRuntime,
       memorySize: 128,
+      functionName : 'MY_FUNCTION_NAME',
       timeout: Duration.seconds(30),
-      code: lambda.Code.fromAsset("lambda/myfunction"),
-      handler: "index.handler",
+      code: lambda.Code.fromAsset("function"),
+      handler: "app.lambdaHandler",
     });
 
 
