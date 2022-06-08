@@ -139,7 +139,7 @@ inquirer.prompt(questions).then((answers) => {
 
         //console.log(`\n Copy the following ../templates/${templateFolderName} folder definition to your ${projectName} folder:`)
 
-        console.log(chalk.green('\n Generating function files... \n'))
+        console.log(chalk.green('\n Generating project template files... \n'))
         const spinner = ora("Downloading...");
         spinner.start();
 
@@ -152,7 +152,7 @@ inquirer.prompt(questions).then((answers) => {
             }
           spinner.succeed();
           console.log(chalk.green(symbols.success), chalk.green('Generation completed!'))
-          
+
           let stackName =  fs.readFileSync(path.join(__dirname,`../${projectName}/bin/project.ts`), 'utf8', (err,resultdata)=> {
             if (err) {
               return console.log(err);
@@ -160,16 +160,13 @@ inquirer.prompt(questions).then((answers) => {
             return data
           });
 
-          //console.log(stackName);
-          stackName = stackName.replace(/projectName/g, 'eeeeeee')
-          //console.log(stackName);
+          stackName = stackName.replace(/projectName/g, projectName)
 
           let log =`\n       
           ${stackName.replace('/projectName/g', projectName)}
           \n`
-          console.log(highlight(log, {language: 'yaml', ignoreIllegals: true}))
+          console.log(highlight(log, {language: 'typescript', ignoreIllegals: true}))
 
-          console.log('done 2');
           
         });
 
