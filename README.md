@@ -24,7 +24,15 @@ function-stencil init
 ```sh
 Whats the function name? MyFunctionName
 ```
-### 3. Function code and file system is generated
+
+### 3. Choose a templating language snippet 
+```sh
+? Choose one of the following templating languages for this runtime (Use arrow keys)
+❯ sam 
+  terraform 
+```
+
+### 4. Function code and file system is generated
 
 ```sh
 MyFunctionName
@@ -57,6 +65,11 @@ Test your function locally by running  `harness.js` from the *function* director
 { statusCode: 200, body: '{"message":"hello world"}' }
 localTest: 7.998ms
 ```
+
+## Contributing
+ [Start here](/CONTRIBUTING.md)
+
+
 
 ## Author
 
