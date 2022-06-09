@@ -8,7 +8,7 @@ LambdaFunctionprojectName:
       Architectures:
         - x86_64
       MemorySize: 512
-      Environment:
+      Environment: 
         Variables:
           PARAM1: VALUE
-          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1 
