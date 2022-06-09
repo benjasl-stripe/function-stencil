@@ -18,6 +18,9 @@ function-stencil init
 ? What runtime do you need? (Use arrow keys)
 ❯ nodejs16.x 
   nodejs14.x 
+  python3.9 
+  java11
+  dotnet6
 ```
 
 ### 2. Provide a function name
