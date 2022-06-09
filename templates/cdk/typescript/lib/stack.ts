@@ -2,7 +2,7 @@ import { Duration, StackProps,
   aws_logs as logs,
   aws_lambda as lambda,
   RemovalPolicy,
-  Stack, 
+  Stack,
   CfnOutput} from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
@@ -10,15 +10,13 @@ export class MyStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const myRuntime = lambda.Runtime.NODEJS_14_X;
-    
     const myFunction = new lambda.Function(this, "MyFunction", {
-      runtime: myRuntime,
+      runtime: MY_RUNTIME,
       memorySize: 128,
       functionName : 'MY_FUNCTION_NAME',
       timeout: Duration.seconds(30),
       code: lambda.Code.fromAsset("function"),
-      handler: "app.lambdaHandler",
+      handler: "index.handler",
     });
 
 

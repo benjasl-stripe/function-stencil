@@ -19,12 +19,16 @@
     "inlineSources": true,
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
+    "resolveJsonModule": true,
+    "outDir": "dist",
     "typeRoots": [
       "./node_modules/@types"
-    ]
+    ],
   },
   "exclude": [
     "node_modules",
-    "cdk.out"
+    "cdk.out",
+    "dist",
   ]
 }
+
