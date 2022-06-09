@@ -13,6 +13,7 @@ const highlight = require('cli-highlight').highlight
 const highlightAuto = require('cli-highlight').highlightAuto
 const path = require('path');
 const fs = require('fs');
+const { exit } = require('process')
 
 
 
@@ -22,7 +23,7 @@ chalk.level = 1
 console.log('lets get you a Lambda function!');
 
 const questions = [
-  
+
   {
     type: 'list',
     name: 'runtime',
@@ -43,13 +44,13 @@ const questions = [
 
 inquirer.prompt(questions).then((answers) => {
 
-      inquirer.prompt(getTemplateQuestions(answers)).then((templateAnswers) => {
-        answers.template = templateAnswers.template
+  inquirer.prompt(getTemplateQuestions(answers)).then((templateAnswers) => {
+    answers.template = templateAnswers.template
 
-        
+
     console.log('\n Ready to go:');
     console.log(JSON.stringify(answers, null, '  '));
-    
+
 
 
     if (answers.length < 1) return program.help()
@@ -57,7 +58,8 @@ inquirer.prompt(questions).then((answers) => {
     let runtimeName = answers.runtime.replace(/\s/g, '')
     let projectName = answers.name.replace(/\s/g, '')
     let templateName = answers.template.replace(/\s/g, '')
-    let templateFileName=''
+    let templateFileName = ''
+    let templateFolderName = ''
 
 
     if (!options.runtimes.includes(runtimeName)) {
@@ -68,75 +70,183 @@ inquirer.prompt(questions).then((answers) => {
       console.log(chalk.red('\n Project should not be empty! \n '))
       return
     }
+
+    console.log(templateName);
+    //if(templateName.includes('cdk')){
+    //  templateName = templateName.replace(' - ', '/')
+    //}
+
+    console.log("templateName=" + templateName);
+    console.log(templateName.startsWith('cdk'));
+
     if (templateName) {
+
       switch (templateName) {
         case 'sam':
-           templateFileName = 'template.yaml'
+          templateFileName = 'template.yaml'
           break;
-          case 'terraform':
-             templateFileName = 'main.tf'
-            break;
+        case 'terraform':
+          templateFileName = 'main.tf'
+          break;
+        case templateName.startsWith('cdk') ? templateName : '':
+          templateFolderName = templateName.replace('-', '/')
+          break;
         default:
-             templateFileName = 'template.yaml'
+          templateFileName = 'template.yaml'
           break;
       }
     }
 
     //let url = templateList[runtimeName]
     console.log(chalk.green('\n Generating function files... \n'))
-    const spinner = ora("Downloading...");
+    const spinner = ora("Downloading ...");
     spinner.start();
-    copydir(path.join(__dirname,`../functions/${runtimeName}`) , `./${projectName}`,
-    async function(err){
-      if(err){ 
-        console.log(chalk.red(`\n${symbols.error}`), chalk.red(`OOPS! ${err}`)) 
-        process.exit(1);
-        }
-      spinner.succeed();
-      console.log(chalk.green(symbols.success), chalk.green('Generation completed!'))
-      console.log(`\n Copy the following ${templateName} definition onto the resource block of your ${templateFileName} file:`)
-      
-      let template =  fs.readFileSync(path.join(__dirname,`../templates/${runtimeName}/${templateName}/${templateFileName}`), 'utf8', (err,resultdata)=> {
+    copydir(path.join(__dirname, `../functions/${runtimeName}`), `./${projectName}`,
+      async function (err) {
         if (err) {
-          return console.log(err);
+          console.log(chalk.red(`\n${symbols.error}`), chalk.red(`OOPS! ${err}`))
+          process.exit(1);
         }
-        return data
+        spinner.succeed();
+        console.log(chalk.green(symbols.success), chalk.green('Generation completed!'))
+
+
+        if (templateFileName) {
+
+          console.log(`\n Copy the following ${templateName} definition onto the resource block of your ${templateFileName} file:`)
+
+
+          let template = fs.readFileSync(path.join(__dirname, `../templates/${runtimeName}/${templateName}/${templateFileName}`), 'utf8', (err, resultdata) => {
+            if (err) {
+              return console.log(err);
+            }
+            return data
+          });
+
+          template = template.replace(/projectName/g, projectName)
+          template = template.replace(/runtimeName/g, runtimeName)
+
+
+          let log = `\n
+        ${template.replace('/projectName/g', projectName).replace('/runtimeName/g', runtimeName)}
+        \n`
+          console.log(highlight(log, { language: 'yaml', ignoreIllegals: true }))
+
+
+        } else {
+
+          console.log(chalk.green('\n Generating project template files... \n'))
+          const spinner = ora("Downloading...");
+          spinner.start();
+
+
+          copydir(path.join(__dirname, `../templates/${templateFolderName}`), `./${projectName}`,
+            async function (err) {
+              if (err) {
+                console.log(chalk.red(`\n${symbols.error}`), chalk.red(`OOPS! ${err}`))
+                process.exit(1);
+              }
+              spinner.succeed();
+              console.log(chalk.green(symbols.success), chalk.green('Generation completed!'))
+
+              var result = fs.readFileSync(path.join(__dirname, `../${projectName}/bin/project.ts`), 'utf8', (err, resultdata) => {
+                if (err) {
+                  return console.log(err);
+                }
+                return data
+              });
+
+              result = result.replace(/STACK_NAME/g, projectName)
+
+              fs.writeFile(path.join(__dirname, `../${projectName}/bin/project.ts`), result, 'utf8', (err) => {
+                if (err) {
+                  return console.log(err);
+                }
+              });
+
+              result = fs.readFileSync(path.join(__dirname, `../${projectName}/lib/stack.ts`), 'utf8', (err, resultdata) => {
+                if (err) {
+                  return console.log(err);
+                }
+                return data
+              });
+
+              result = result.replace(/MY_FUNCTION_NAME/g, projectName)
+              result = result.replace(/MY_RUNTIME/g, cdkRuntime(runtimeName))
+              if(runtimeName=='java11'){
+                result = result.replace(/index.handler/g, 'helloworld.App::handleRequest')
+              }else if(runtimeName=='dotnet6'){
+                result = result.replace(/index.handler/g, 'Function::LambdaHandler')
+              }
+
+              fs.writeFile(path.join(__dirname, `../${projectName}/lib/stack.ts`), result, 'utf8', (err) => {
+                if (err) {
+                  return console.log(err);
+                }
+              });
+
+            });
+
+        }
+
+
+        console.log('\n To get started')
+        console.log(`\n    cd ${projectName} \n`)
       });
-
-      template = template.replace(/projectName/g, projectName)
-      template = template.replace(/runtimeName/g, runtimeName)
-
-      
-      let log =`\n       
-      ${template.replace('/projectName/g', projectName).replace('/runtimeName/g', runtimeName)}
-      \n`
-
-      console.log(highlight(log, {language: 'yaml', ignoreIllegals: true}))
-      console.log('\n To get started')
-      console.log(`\n    cd ${projectName} \n`)
-    });
 
 
   })
 })
 
+function cdkRuntime(str) {
+
+  const index = str.search(/[0-9]/);
+  const lang = str.substring(0, index).toUpperCase();
+  const version = str.substring(index);
+  var runtime = "lambda.Runtime.";
+  if (version.indexOf('.') > 0) {
+    pos = version.indexOf('.');
+    runtime += lang + '_' + version.substring(0, pos).toUpperCase() + '_' + version.substring(pos + 1).toUpperCase();
+
+  } else {
+    runtime += lang.toUpperCase() + '_' + version;
+
+  }
+
+
+  return runtime;
+}
 function getTemplateQuestions(answers) {
-    const templateList = answers.templateList
-    const templatOptions = fs.readdirSync( `${__dirname}/../templates/${answers.runtime}` )
-    const templeArray =[]
-    templatOptions.forEach(folder => {
-      if (path.extname(folder) != ".DS_Store")
-          templeArray.push(folder);
-    })
-    const templateQuestions = []
-        templateQuestions.push(
-            {
-                type: "list",
-                name: `template`,
-                choices: templeArray,
-                message: `Choose one of the following templating languages for this runtime`
-            }
-        )
-    
-    return templateQuestions
+  const templateList = answers.templateList
+  var templateOptions = fs.readdirSync(`${__dirname}/../templates/${answers.runtime}`)
+  const templeArray = []
+  templateOptions.forEach(folder => {
+    if (path.extname(folder) != ".DS_Store")
+      templeArray.push(folder);
+  });
+
+  //get all cdk projects - typescript, python if they exists
+  var cdkSupportedRuntime = ['nodejs14.x', 'nodejs16.x', 'python3.9'];
+  if(cdkSupportedRuntime.includes(answers.runtime)){
+    templateOptions = fs.readdirSync(`${__dirname}/../templates/cdk`)
+    templateOptions.forEach(folder => {
+      if (path.extname(folder) != ".DS_Store" && answers.runtime)
+        templeArray.push('cdk - ' + folder);
+    });
+  }
+
+
+  console.log(templeArray);
+
+  const templateQuestions = []
+  templateQuestions.push(
+    {
+      type: "list",
+      name: `template`,
+      choices: templeArray,
+      message: `Choose one of the following templating languages for this runtime`
+    }
+  )
+
+  return templateQuestions
 }

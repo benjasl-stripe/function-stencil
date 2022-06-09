@@ -6,7 +6,7 @@
   s3_key    = aws_s3_object.lambda_projectName.key
 
   runtime = "runtimeName"
-  handler = "app.lambdaHandler"
+  handler = "index.handler"
 
   source_code_hash = data.archive_file.lambda_projectName.output_base64sha256
 }
