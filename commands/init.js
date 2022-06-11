@@ -76,6 +76,9 @@ inquirer.prompt(questions).then((answers) => {
           case 'terraform':
              templateFileName = 'main.tf'
             break;
+            case 'cdk-typescript':
+              templateFileName = 'template.ts'
+             break;  
         default:
              templateFileName = 'template.yaml'
           break;
