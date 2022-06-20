@@ -1,6 +1,6 @@
 {
   "name": "function-stencil",
-  "version": "1.9.8",
+  "version": "1.9.9",
   "description": "A quickstart AWS Lambda function code generator. Downloads a template function code file, test harness file, sample SAM deffiniation and appropriate file structure.",
   "keywords": [
     "serverless",
