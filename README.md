@@ -70,7 +70,7 @@ localTest: 7.998ms
 ```
 
 ## Contributing
- [Start here](/CONTRIBUTING.md)
+ [Start here](https://github.com/bls20AWS/function-stencil/blob/main/CONTRIBUTING.md)
 
 
 
