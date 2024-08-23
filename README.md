@@ -4,7 +4,7 @@
 ## Install
 
 ```sh
-npm install function-stencil
+npm install function-stencil -g
 ```
 
 ## Usage
